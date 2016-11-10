@@ -69,6 +69,14 @@ public class Fragment
 			
 		}
 	}
+	public void actualiseSize()
+	{
+		this.size=chaineString.length();
+	}
+	public int getSize()
+	{
+		return this.size;
+	}
 	
 	public String replaceChar(String s,int position, char c)
 	{

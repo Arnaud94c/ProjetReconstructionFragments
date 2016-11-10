@@ -6,6 +6,7 @@ import java.util.List;
 public class CollectionFragments
 {
 	private List<Fragment> listFragments;
+	private int index=0;
 	
 	public CollectionFragments()
 	{
@@ -16,5 +17,22 @@ public class CollectionFragments
 	{
 		listFragments.add(fragment);
 	}
+	public Fragment giveFirstFragment()
+	{
+		return listFragments.get(index);
+	}
+	public Fragment giveSecondFragment()
+	{
+		return listFragments.get(index+1);
+	} 
+	public void incrementIndex()
+	{
+		this.index++;
+	}
+	public int giveNumberFragments()
+	{
+		return listFragments.size();
+	}
+	
 
 }

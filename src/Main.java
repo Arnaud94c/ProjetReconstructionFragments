@@ -18,6 +18,15 @@ public class Main {
 		System.out.println("Bonjour");
 		collection=readFile();
 		System.out.println("Collection de fragments encodées");
+		
+		for(int i=0;i<collection.giveNumberFragments();i++)
+		{
+			applyAlgoSemiGlobal(collection);
+			collection.incrementIndex();
+		}
+		
+		
+		
 	}
 	
 	public static  CollectionFragments readFile () throws IOException
@@ -91,5 +100,32 @@ public class Main {
 		
 	}
 
+	
+	public static void applyAlgoSemiGlobal(CollectionFragments collection)
+	{
+		Fragment frag1 = collection.giveFirstFragment();
+		Fragment frag2 =collection.giveSecondFragment();
+				
+		
+		// pour l'instant prend juste en compte les fragments tel quel ,  encore les complémentaires et les inversés à prendre en compte
+		
+		frag1.actualiseSize();
+		frag2.actualiseSize();		
+		int[][] matrice=Algo.semiGlobal(frag1.getChaine(), frag2.getChaine(), frag1.getSize()+1, frag2.getSize()+1);
+		for (int i=0;i<frag1.getSize();i++)
+		{
+			for(int j=0;j<frag2.getSize();j++)
+			{
+				System.out.print(matrice[i][j]+" ");
+			}
+			System.out.println();
+		}
+		
+		int max1= Algo.findMaxRow(matrice[frag1.getSize()]);
+		System.out.println(max1);
+		int max2=Algo.findMaxColumn(matrice);
+		System.out.println(max2);
+	}
+	
 	
 }

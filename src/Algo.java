@@ -30,7 +30,7 @@ public class Algo {
 	/**
 	 * algo de match
 	 * @param si symbole a comparer
-	 * @param ti symbole a comparer
+	 * @param si symbole a comparer
 	 * @return 1 si match, -1 si mismatch
 	 */
 	public static int match(char si,char ti){
