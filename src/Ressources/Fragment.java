@@ -33,7 +33,9 @@ public class Fragment
 	
 	public String getComplementaire()
 	{
-		return this.chaineCompl;
+		StringBuilder buff=new StringBuilder(this.chaineCompl);
+		String inverse= buff.reverse().toString();
+		return inverse;
 	}
 	public void addChaine(String chaine)
 	{

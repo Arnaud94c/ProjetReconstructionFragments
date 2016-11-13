@@ -6,7 +6,8 @@ import java.util.List;
 public class CollectionFragments
 {
 	private List<Fragment> listFragments;
-	private int index=0;
+	private int indexComparateur=0;
+	private int indexCompare=1;
 	
 	public CollectionFragments()
 	{
@@ -19,19 +20,38 @@ public class CollectionFragments
 	}
 	public Fragment giveFirstFragment()
 	{
-		return listFragments.get(index);
+		return listFragments.get(indexComparateur);
 	}
 	public Fragment giveSecondFragment()
 	{
-		return listFragments.get(index+1);
+		return listFragments.get(indexCompare);
 	} 
-	public void incrementIndex()
+		
+	
+	public void incrementIndexComparateur()
 	{
-		this.index++;
+		this.indexComparateur++;
+	}
+	public void incrementIndexCompare()
+	{
+		this.indexCompare++;
+	}
+	public void reinistialiseIndexCompare()
+	{
+		this.indexCompare=0;
 	}
 	public int giveNumberFragments()
 	{
 		return listFragments.size();
+	}
+	public void adjustIndexCompare()
+	{
+		this.indexCompare=this.indexComparateur+1;
+	}
+	
+	public int giveAdjustedIndex()
+	{
+		return  this.indexCompare;
 	}
 	
 

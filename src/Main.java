@@ -11,7 +11,8 @@ import Ressources.Fragment;
 
 public class Main {
 
-	public static  void main(String[] args) throws IOException {
+	public static  void main(String[] args) throws IOException 
+	{
 		// TODO Auto-generated method stub
 		
 		CollectionFragments collection = new CollectionFragments();
@@ -19,11 +20,31 @@ public class Main {
 		collection=readFile();
 		System.out.println("Collection de fragments encodées");
 		
-		for(int i=0;i<collection.giveNumberFragments();i++)
+		for(int j=0;j<collection.giveNumberFragments();j++)
 		{
-			applyAlgoSemiGlobal(collection);
-			collection.incrementIndex();
+
+			while(collection.giveAdjustedIndex()<(collection.giveNumberFragments())-1)
+			{
+				System.getProperty("line.separator");
+				System.out.printf("comparateur n°: ");
+				System.out.println(j);
+				System.getProperty("line.separator");
+				System.out.printf("compare n°: ");
+				System.out.println(collection.giveAdjustedIndex());
+				System.getProperty("line.separator");
+				
+				applyAlgoSemiGlobal(collection,1);
+				applyAlgoSemiGlobal(collection,2);
+				applyAlgoSemiGlobal(collection,3);
+			//	applyAlgoSemiGlobal(collection,4);
+				collection.incrementIndexCompare();
+			}
+			
+			collection.incrementIndexComparateur();
+			collection.adjustIndexCompare();
 		}
+		
+		
 		
 		
 		
@@ -101,30 +122,71 @@ public class Main {
 	}
 
 	
-	public static void applyAlgoSemiGlobal(CollectionFragments collection)
+	//1 standard standard
+	//2
+	//3
+	//4
+	
+	public static void applyAlgoSemiGlobal(CollectionFragments collection,int mode)
 	{
+		try
+		{
 		Fragment frag1 = collection.giveFirstFragment();
 		Fragment frag2 =collection.giveSecondFragment();
+		
+		String chaine1="";
+		String chaine2="";
+		
+		switch(mode)
+		{
+		case 1: // standard & standard
+			 chaine1=frag1.getChaine();
+			 chaine2=frag2.getChaine();
+		
+		break;
+		case 2: // standard & Compl.inversé
+			 chaine1=frag1.getChaine();
+			 chaine2=frag2.getComplementaire();
+		
+		break;
+		
+		case 3: // Compl.inversé & standard
+			 chaine1=frag1.getChaine();
+			 chaine2=frag2.getComplementaire();
+		
+			break;
+			
+		case 4: //inversé & inversé
+			chaine1=frag1.getComplementaire();
+			chaine2=frag2.getComplementaire();
+			break;
+		default:
+			 chaine1=frag1.getChaine();
+			 chaine2=frag2.getChaine();
+		break;
+		}
 				
-		
-		// pour l'instant prend juste en compte les fragments tel quel ,  encore les complémentaires et les inversés à prendre en compte
-		
 		frag1.actualiseSize();
 		frag2.actualiseSize();		
-		int[][] matrice=Algo.semiGlobal(frag1.getChaine(), frag2.getChaine(), frag1.getSize()+1, frag2.getSize()+1);
-		for (int i=0;i<frag1.getSize();i++)
+		int[][] matrice=Algo.semiGlobal(chaine1, chaine2, frag1.getSize()+1, frag2.getSize()+1);
+//		for (int i=0;i<frag1.getSize();i++)
+//		{
+//			for(int j=0;j<frag2.getSize();j++)
+//			{
+//				System.out.print(matrice[i][j]+" ");
+//			}
+//			System.out.println();
+//		}
+		
+			int max1= Algo.findMaxRow(matrice[frag1.getSize()]);
+			System.out.println(max1);
+			int max2=Algo.findMaxColumn(matrice);
+			System.out.println(max2);
+		}catch(Exception e)
 		{
-			for(int j=0;j<frag2.getSize();j++)
-			{
-				System.out.print(matrice[i][j]+" ");
-			}
-			System.out.println();
+			System.out.println(e);
 		}
 		
-		int max1= Algo.findMaxRow(matrice[frag1.getSize()]);
-		System.out.println(max1);
-		int max2=Algo.findMaxColumn(matrice);
-		System.out.println(max2);
 	}
 	
 	
