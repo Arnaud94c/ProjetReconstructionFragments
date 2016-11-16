@@ -4,32 +4,53 @@ package Ressources;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Fragment
+ *
+ */
+
 public class Fragment 
 {
-	private List<String> chaineCaracteres;
-	private List<String>chaineComplementaire;
+	// chaine
 	private String chaineString;
+	// identifiant
 	private int id= 0;
+	//taille de la chaine
 	private int size;
+	//chaine complemente
 	private String chaineCompl;
 
+	/**
+	 * Constructeur par defaut.
+	 */
 	public Fragment()
 	{}
 	
+	/**
+	 * Constructeur
+	 * @param identifiant
+	 */
 	public Fragment(int identifiant)
 	{
 		chaineString="";
 		chaineCompl="";
 		id=identifiant;
-		chaineComplementaire=new ArrayList<String>();
-		chaineCaracteres=new ArrayList<String>();
 		size=0;
 	}
 	
+	/**
+	 * Retourne la chaine.
+	 * @return chaine
+	 */
 	public String getChaine()
 	{
 		return this.chaineString;
 	}
+	
+	/**
+	 * Retourne la chaine inversé complemente
+	 * @return
+	 */
 	
 	public String getComplementaire()
 	{
@@ -37,12 +58,21 @@ public class Fragment
 		String inverse= buff.reverse().toString();
 		return inverse;
 	}
+	
+	/**
+	 * Ajoute un caractere a la chaine.
+	 * @param chaine caractere
+	 */
 	public void addChaine(String chaine)
 	{
-		chaineCaracteres.add(chaine);
+		
 		chaineString+=chaine;
-		size=chaineCaracteres.size();
+		
 	}
+	/**
+	 * Calcul du complementaire
+	 */
+	
 	public void calculComplementaire()
 	{
 		chaineCompl=chaineString;
@@ -71,14 +101,33 @@ public class Fragment
 			
 		}
 	}
+	
+	/**
+	 * Actualise la taille de la chaine.
+	 */
+	
 	public void actualiseSize()
 	{
 		this.size=chaineString.length();
 	}
+	
+	/**
+	 * Retourne la taille de la chaine.
+	 * @return
+	 */
+	
 	public int getSize()
 	{
 		return this.size;
 	}
+	
+	/**
+	 * Remplace un caratere dans la chaine.
+	 * @param s chaine
+	 * @param position  postion du caractere a remplacer
+	 * @param c  caractere remplacant
+	 * @return
+	 */
 	
 	public String replaceChar(String s,int position, char c)
 	{

@@ -36,19 +36,59 @@ public class Main {
 				applyAlgoSemiGlobal(collection,1);
 				applyAlgoSemiGlobal(collection,2);
 				applyAlgoSemiGlobal(collection,3);
-			//	applyAlgoSemiGlobal(collection,4);
+				
+//				long test1=System.currentTimeMillis();
+//				applyAlgoSemiGlobal(collection,1);
+//				long test2= System.currentTimeMillis()-test1;
+//				long test3=System.currentTimeMillis();
+//				applyAlgoSemiGlobal(collection,2);
+//				long test4= System.currentTimeMillis()-test3;
+//				long test5=System.currentTimeMillis();
+//				applyAlgoSemiGlobal(collection,3);
+//				long test6= System.currentTimeMillis()-test5;
+				
+				
+				
+//				ThreadGroup tg= new ThreadGroup("monGroupe");
+//				
+//				monThread t1= new monThread(collection,1);
+//				monThread t2= new monThread(collection,2);
+//				monThread t3= new monThread(collection,3);
+//				
+//				t1.start();
+//				t2.start();
+//				t3.start();
+//				
+//				try
+//				{
+//					Thread.currentThread().sleep(5);
+//				}catch(InterruptedException e)
+//				{
+//					e.printStackTrace();
+//				}
+//				tg.interrupt();
+				
 				collection.incrementIndexCompare();
+				
+			
+				
 			}
 			
 			collection.incrementIndexComparateur();
 			collection.adjustIndexCompare();
 		}
-		
+		System.out.print("fin");
 		
 		
 		
 		
 	}
+	
+	/**
+	 * Lecture du fichier
+	 * @return Collection de fragments
+	 * @throws IOException
+	 */
 	
 	public static  CollectionFragments readFile () throws IOException
 	{
@@ -61,8 +101,11 @@ public class Main {
 		
 		try
 		{	
-			ficTexte= new BufferedReader(new FileReader(new File("C:\\Users\\Arnaud\\Documents\\ProjetReconstructionFragments\\src\\collection2.fasta")));
+		//	ficTexte= new BufferedReader(new FileReader(new File(".\\src\\collection2.fasta")));
 				
+			ficTexte= new BufferedReader(new FileReader(new File(".\\src\\Ressources\\Collection1-Simplifiée.FASTA")));
+			
+			
 			while (ficTexte !=null)
 			{
 					ligne=ficTexte.readLine();
@@ -121,11 +164,11 @@ public class Main {
 		
 	}
 
-	
-	//1 standard standard
-	//2
-	//3
-	//4
+	/**
+	 * Application de l'algorithme semi-global.
+	 * @param collection collection comprenant les fragments
+	 * @param mode définit si les fragments sont inversés complémentaires ou pas.
+	 */
 	
 	public static void applyAlgoSemiGlobal(CollectionFragments collection,int mode)
 	{
@@ -139,24 +182,24 @@ public class Main {
 		
 		switch(mode)
 		{
-		case 1: // standard & standard
+		case 1: // standard et standard
 			 chaine1=frag1.getChaine();
 			 chaine2=frag2.getChaine();
 		
 		break;
-		case 2: // standard & Compl.inversé
+		case 2: // standard et Compl.inversé
 			 chaine1=frag1.getChaine();
 			 chaine2=frag2.getComplementaire();
 		
 		break;
 		
-		case 3: // Compl.inversé & standard
+		case 3: // Compl.inversé et standard
 			 chaine1=frag1.getChaine();
 			 chaine2=frag2.getComplementaire();
 		
 			break;
 			
-		case 4: //inversé & inversé
+		case 4: //inversé et inversé
 			chaine1=frag1.getComplementaire();
 			chaine2=frag2.getComplementaire();
 			break;
@@ -169,14 +212,7 @@ public class Main {
 		frag1.actualiseSize();
 		frag2.actualiseSize();		
 		int[][] matrice=Algo.semiGlobal(chaine1, chaine2, frag1.getSize()+1, frag2.getSize()+1);
-//		for (int i=0;i<frag1.getSize();i++)
-//		{
-//			for(int j=0;j<frag2.getSize();j++)
-//			{
-//				System.out.print(matrice[i][j]+" ");
-//			}
-//			System.out.println();
-//		}
+
 		
 			int max1= Algo.findMaxRow(matrice[frag1.getSize()]);
 			System.out.println(max1);
