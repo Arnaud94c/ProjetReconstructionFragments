@@ -4,12 +4,19 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import Ressources.CollectionFragments;
 import Ressources.Fragment;
+import Ressources.Node;
+import Ressources.Link;
+import Ressources.Graphe;
 
 
 public class Main {
+	
+	    public static ArrayList<Node> listNode= new ArrayList<Node>();
+		public static ArrayList<Link> listLink= new ArrayList<Link>();
 
 	public static  void main(String[] args) throws IOException 
 	{
@@ -20,9 +27,13 @@ public class Main {
 		collection=readFile();
 		System.out.println("Collection de fragments encodées");
 		
+		
+		
+		
 		for(int j=0;j<collection.giveNumberFragments();j++)
 		{
-
+			Node node = new Node(j);
+			listNode.add(node);
 			while(collection.giveAdjustedIndex()<(collection.giveNumberFragments())-1)
 			{
 				System.getProperty("line.separator");
@@ -76,10 +87,15 @@ public class Main {
 			
 			collection.incrementIndexComparateur();
 			collection.adjustIndexCompare();
+			
+			
 		}
-		System.out.print("fin");
 		
-		
+		Graphe graphe = new Graphe(listNode,listLink);
+		System.out.print("Tri décroissant en cours ...");
+		graphe.triArcDecroissant();
+		Greedy greedy = new Greedy(graphe);
+		greedy.applyAlgo();
 		
 		
 	}
@@ -180,35 +196,49 @@ public class Main {
 		String chaine1="";
 		String chaine2="";
 		
+		Object link =  new Object();
+		
 		switch(mode)
 		{
 		case 1: // standard et standard
 			 chaine1=frag1.getChaine();
 			 chaine2=frag2.getChaine();
+			 
+		//	 Node source, Node destination,boolean chaineSourceCompl,boolean chaineDestinationCompl, int value
+			 
+			 link=new Link(frag1.getId(),frag2.getId(),false,false,1);
+			 
 		
 		break;
 		case 2: // standard et Compl.inversé
 			 chaine1=frag1.getChaine();
 			 chaine2=frag2.getComplementaire();
+			 link=new Link(frag1.getId(),frag2.getId(),false,true,2);
 		
 		break;
 		
 		case 3: // Compl.inversé et standard
 			 chaine1=frag1.getChaine();
 			 chaine2=frag2.getComplementaire();
+			 link = new Link(frag1.getId(),frag2.getId(),true,false,3);
 		
 			break;
 			
 		case 4: //inversé et inversé
 			chaine1=frag1.getComplementaire();
 			chaine2=frag2.getComplementaire();
+			link  =new Link(frag1.getId(),frag2.getId(),false,false,4);
 			break;
 		default:
 			 chaine1=frag1.getChaine();
 			 chaine2=frag2.getChaine();
+			 link = new Link(frag1.getId(),frag2.getId(),false,false,5);
 		break;
 		}
 				
+		
+		listLink.add((Link) link);
+		
 		frag1.actualiseSize();
 		frag2.actualiseSize();		
 		int[][] matrice=Algo.semiGlobal(chaine1, chaine2, frag1.getSize()+1, frag2.getSize()+1);

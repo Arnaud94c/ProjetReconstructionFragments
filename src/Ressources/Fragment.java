@@ -134,6 +134,10 @@ public class Fragment
 		return s.substring(0,position)+ c+ s.substring(position+1);
 	}
 	
+	public int getId()
+	{
+		return this.id;
+	}
 	
 
 }

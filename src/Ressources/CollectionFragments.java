@@ -54,6 +54,12 @@ public class CollectionFragments
 	{
 		return listFragments.get(indexCompare);
 	} 
+	
+	
+	public Fragment getFragment(int index)
+	{
+		return this.listFragments.get(index);
+	}
 		
 	/**
 	 * Incremente l'index du comparateur
