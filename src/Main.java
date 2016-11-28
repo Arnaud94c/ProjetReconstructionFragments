@@ -34,7 +34,7 @@ public class Main {
 		{
 			Node node = new Node(j);
 			listNode.add(node);
-			while(collection.giveAdjustedIndex()<(collection.giveNumberFragments())-1)
+			while(collection.giveAdjustedIndex()<(collection.giveNumberFragments()))
 			{
 				System.getProperty("line.separator");
 				System.out.printf("comparateur n°: ");
@@ -137,7 +137,7 @@ public class Main {
 							
 							if (asciiCode==62)
 							{
-								id++;
+								
 								
 								if(first)
 								{
@@ -148,6 +148,7 @@ public class Main {
 									first=true;
 								}
 								fragment = new Fragment(id);
+								id++;
 							}else
 							{
 								
@@ -161,6 +162,7 @@ public class Main {
 				     }
 					}else
 					{
+						fragment.calculComplementaire();
 						collection.addFragments(fragment);
 						ficTexte=null;
 					}
@@ -201,20 +203,15 @@ public class Main {
 		switch(mode)
 		{
 		case 1: // standard et standard
-			 chaine1=frag1.getChaine();
-			 chaine2=frag2.getChaine();
-			 
-		//	 Node source, Node destination,boolean chaineSourceCompl,boolean chaineDestinationCompl, int value
-			 
+			
+				chaine1=frag1.getChaine();
+			 chaine2=frag2.getChaine(); 
 			 link=new Link(frag1.getId(),frag2.getId(),false,false,1);
-			 
-		
 		break;
 		case 2: // standard et Compl.inversé
 			 chaine1=frag1.getChaine();
 			 chaine2=frag2.getComplementaire();
 			 link=new Link(frag1.getId(),frag2.getId(),false,true,2);
-		
 		break;
 		
 		case 3: // Compl.inversé et standard

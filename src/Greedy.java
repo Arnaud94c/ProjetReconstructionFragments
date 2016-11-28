@@ -28,13 +28,11 @@ public class Greedy
 				// FUSIONNER LES DEUX ENSEMBLES 
 			}
 			
-			if(hamiltonienWay.size()==(graphe.getNode().size()-2)) // si tous les noeuds sont atteints.
+			if(hamiltonienWay.size()==(graphe.getNode().size()-1)) // si tous les noeuds sont atteints.
 			{
 				break;
 			}
-		}
-		
-		
+		}	
 	}
 	
 	

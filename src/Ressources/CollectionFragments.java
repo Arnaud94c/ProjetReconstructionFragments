@@ -42,7 +42,9 @@ public class CollectionFragments
 	
 	public Fragment giveFirstFragment()
 	{
-		return listFragments.get(indexComparateur);
+		
+			return listFragments.get(indexComparateur);
+		
 	}
 	
 	/**
