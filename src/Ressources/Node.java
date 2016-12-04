@@ -6,12 +6,14 @@ public class Node
 	private int id=0;
 	private boolean in;
 	private boolean out;
+	private boolean compl;
 	
 	public Node(int id)
 	{
 		this.id=id;
 		this.in=false;
 		this.out=false;
+		this.compl=false;
 	}
 	
 	public Node ()
@@ -28,6 +30,10 @@ public class Node
 	{
 		return this.out;
 	}
+	public boolean getCompl()
+	{
+		return this.compl;
+	}
 	public void isIn()
 	{
 		this.in=true;
@@ -35,6 +41,11 @@ public class Node
 	public void isOut()
 	{
 		this.out=true;
+	}
+
+	public void isCompl()
+	{
+		this.compl=true;
 	}
 //	public String getChaine()
 //	{

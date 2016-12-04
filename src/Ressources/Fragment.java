@@ -48,17 +48,38 @@ public class Fragment
 	}
 	
 	/**
-	 * Retourne la chaine inversé complemente
+	 * Retourne la chaine inverse complemente
 	 * @return
 	 */
 	
-	public String getComplementaire()
+	public String getInverseComplementaire()
 	{
 		StringBuilder buff=new StringBuilder(this.chaineCompl);
 		String inverse= buff.reverse().toString();
 		return inverse;
 	}
+
+	/**
+	 * Retourne la chaine complemente
+	 * @return
+	 */
 	
+	public String getComplementaire()
+	{
+		return this.chaineCompl;
+	}
+	
+	/**
+	 * Retourne la chaine inverse
+	 * @return
+	 */
+	
+	public String getInverse()
+	{
+		StringBuilder buff=new StringBuilder(this.chaineString);
+		String inverse= buff.reverse().toString();
+		return inverse;
+	}
 	/**
 	 * Ajoute un caractere a la chaine.
 	 * @param chaine caractere
@@ -76,6 +97,7 @@ public class Fragment
 	public void calculComplementaire()
 	{
 		chaineCompl=chaineString;
+		this.actualiseSize();
 		for (int i=0; i<size;i++)
 		{
 			char caractere=chaineString.charAt(i);

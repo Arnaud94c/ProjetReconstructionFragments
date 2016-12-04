@@ -25,7 +25,7 @@ public class Main {
 		CollectionFragments collection = new CollectionFragments();
 		System.out.println("Bonjour");
 		collection=readFile();
-		System.out.println("Collection de fragments encodées");
+		System.out.println("Collection de fragments encodees");
 		
 		
 		
@@ -37,16 +37,17 @@ public class Main {
 			while(collection.giveAdjustedIndex()<(collection.giveNumberFragments()))
 			{
 				System.getProperty("line.separator");
-				System.out.printf("comparateur n°: ");
+				System.out.printf("comparateur n: ");
 				System.out.println(j);
 				System.getProperty("line.separator");
-				System.out.printf("compare n°: ");
+				System.out.printf("compare n: ");
 				System.out.println(collection.giveAdjustedIndex());
 				System.getProperty("line.separator");
 				
 				applyAlgoSemiGlobal(collection,1);
 				applyAlgoSemiGlobal(collection,2);
 				applyAlgoSemiGlobal(collection,3);
+				applyAlgoSemiGlobal(collection,4);
 				
 //				long test1=System.currentTimeMillis();
 //				applyAlgoSemiGlobal(collection,1);
@@ -92,7 +93,7 @@ public class Main {
 		}
 		
 		Graphe graphe = new Graphe(listNode,listLink);
-		System.out.print("Tri décroissant en cours ...");
+		System.out.print("Tri decroissant en cours ...");
 		graphe.triArcDecroissant();
 		Greedy greedy = new Greedy(graphe);
 		greedy.applyAlgo();
@@ -119,7 +120,7 @@ public class Main {
 		{	
 		//	ficTexte= new BufferedReader(new FileReader(new File(".\\src\\collection2.fasta")));
 				
-			ficTexte= new BufferedReader(new FileReader(new File(".\\src\\Ressources\\Collection1-Simplifiée.FASTA")));
+			ficTexte= new BufferedReader(new FileReader(new File("Ressources/Collection1-Simplifiee.FASTA")));
 			
 			
 			while (ficTexte !=null)
@@ -185,7 +186,7 @@ public class Main {
 	/**
 	 * Application de l'algorithme semi-global.
 	 * @param collection collection comprenant les fragments
-	 * @param mode définit si les fragments sont inversés complémentaires ou pas.
+	 * @param mode definit si les fragments sont inverses complementaires ou pas.
 	 */
 	
 	public static void applyAlgoSemiGlobal(CollectionFragments collection,int mode)
@@ -206,45 +207,135 @@ public class Main {
 			
 				chaine1=frag1.getChaine();
 			 chaine2=frag2.getChaine(); 
-			 link=new Link(frag1.getId(),frag2.getId(),false,false,1);
+			 
 		break;
-		case 2: // standard et Compl.inversé
+		case 2: // standard et Compl.inverse
 			 chaine1=frag1.getChaine();
-			 chaine2=frag2.getComplementaire();
-			 link=new Link(frag1.getId(),frag2.getId(),false,true,2);
+			 chaine2=frag2.getInverseComplementaire();
 		break;
 		
-		case 3: // Compl.inversé et standard
+		case 3: // standard et inverse
 			 chaine1=frag1.getChaine();
-			 chaine2=frag2.getComplementaire();
-			 link = new Link(frag1.getId(),frag2.getId(),true,false,3);
+			 chaine2=frag2.getInverse();
 		
 			break;
 			
-		case 4: //inversé et inversé
-			chaine1=frag1.getComplementaire();
+		case 4: // standard et Complementaire
+			chaine1=frag1.getChaine();
 			chaine2=frag2.getComplementaire();
-			link  =new Link(frag1.getId(),frag2.getId(),false,false,4);
 			break;
 		default:
 			 chaine1=frag1.getChaine();
 			 chaine2=frag2.getChaine();
-			 link = new Link(frag1.getId(),frag2.getId(),false,false,5);
 		break;
 		}
 				
-		
-		listLink.add((Link) link);
 		
 		frag1.actualiseSize();
 		frag2.actualiseSize();		
 		int[][] matrice=Algo.semiGlobal(chaine1, chaine2, frag1.getSize()+1, frag2.getSize()+1);
 
-		
 			int max1= Algo.findMaxRow(matrice[frag1.getSize()]);
 			System.out.println(max1);
 			int max2=Algo.findMaxColumn(matrice);
 			System.out.println(max2);
+
+		switch(mode)
+		{
+		case 1: // standard et standard
+			// n n
+			link=new Link(frag1.getId(),frag2.getId(),false,false,false,false,max1); 
+			listLink.add((Link) link);
+			link=new Link(frag2.getId(),frag1.getId(),false,false,false,false,max2);
+			listLink.add((Link) link);
+			// c c
+			link=new Link(frag1.getId(),frag2.getId(),true,true,false,false,max1); 
+			listLink.add((Link) link);
+			link=new Link(frag2.getId(),frag1.getId(),true,true,false,false,max2);
+			listLink.add((Link) link);
+			// i i
+			link=new Link(frag1.getId(),frag2.getId(),false,true,false,true,max2); 
+			listLink.add((Link) link);
+			link=new Link(frag2.getId(),frag1.getId(),false,true,false,true,max1);
+			listLink.add((Link) link);
+			// ci ci
+			link=new Link(frag1.getId(),frag2.getId(),true,true,true,true,max2); 
+			listLink.add((Link) link);
+			link=new Link(frag2.getId(),frag1.getId(),true,true,true,true,max1);
+			listLink.add((Link) link);
+		break;
+		case 2: // standard et Compl.inverse
+			// n ci
+			link=new Link(frag1.getId(),frag2.getId(),false,false,true,true,max1);
+			listLink.add((Link) link);
+			link=new Link(frag2.getId(),frag1.getId(),true,true,false,false,max2);
+			listLink.add((Link) link);
+			// ci n
+			link=new Link(frag1.getId(),frag2.getId(),true,true,false,false,max2);
+			listLink.add((Link) link);
+			link=new Link(frag2.getId(),frag1.getId(),false,false,true,true,max1);
+			listLink.add((Link) link);
+			// i c
+			link=new Link(frag1.getId(),frag2.getId(),false,true,true,false,max2);
+			listLink.add((Link) link);
+			link=new Link(frag2.getId(),frag1.getId(),true,false,true,false,max1);
+			listLink.add((Link) link);
+			// c i
+			link=new Link(frag1.getId(),frag2.getId(),true,false,false,true,max1);
+			listLink.add((Link) link);
+			link=new Link(frag2.getId(),frag1.getId(),false,true,true,false,max2);
+			listLink.add((Link) link);
+		break;
+		
+		case 3: // standard et inverse
+			// n i
+			link=new Link(frag1.getId(),frag2.getId(),false,false,false,true,max1);
+			listLink.add((Link) link);
+			link=new Link(frag2.getId(),frag1.getId(),false,true,false,false,max2);
+			listLink.add((Link) link);
+			// i n
+			link=new Link(frag1.getId(),frag2.getId(),false,true,false,false,max2);
+			listLink.add((Link) link);
+			link=new Link(frag2.getId(),frag1.getId(),false,false,false,true,max1);
+			listLink.add((Link) link);
+			// ci c
+			link=new Link(frag1.getId(),frag2.getId(),true,true,true,false,max2);
+			listLink.add((Link) link);
+			link=new Link(frag2.getId(),frag1.getId(),true,false,true,true,max1);
+			listLink.add((Link) link);
+			// c ci
+			link=new Link(frag1.getId(),frag2.getId(),true,true,true,false,max1);
+			listLink.add((Link) link);
+			link=new Link(frag2.getId(),frag1.getId(),true,false,true,true,max2);
+			listLink.add((Link) link);
+			break;
+			
+		case 4: // standard et Complementaire
+			// n c
+			link=new Link(frag1.getId(),frag2.getId(),false,false,true,false,max1);
+			listLink.add((Link) link);
+			link=new Link(frag2.getId(),frag1.getId(),true,false,false,false,max2);
+			listLink.add((Link) link);
+			// c n
+			link=new Link(frag1.getId(),frag2.getId(),true,false,false,false,max1);
+			listLink.add((Link) link);
+			link=new Link(frag2.getId(),frag1.getId(),false,false,true,false,max2);
+			listLink.add((Link) link);
+			// i ci
+			link=new Link(frag1.getId(),frag2.getId(),false,true,true,true,max2);
+			listLink.add((Link) link);
+			link=new Link(frag2.getId(),frag1.getId(),true,true,false,true,max1);
+			listLink.add((Link) link);
+			// ci i
+			link=new Link(frag1.getId(),frag2.getId(),true,true,false,true,max2);
+			listLink.add((Link) link);
+			link=new Link(frag2.getId(),frag1.getId(),false,true,true,true,max1);
+			listLink.add((Link) link);
+			
+			break;
+		default:
+		break;
+		}
 		}catch(Exception e)
 		{
 			System.out.println(e);

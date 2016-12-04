@@ -19,7 +19,7 @@ public class Graphe
 		int numbersLink=listLink.size();
 		for (int i=0;i<numbersLink;i++)
 		{
-			if(i==numbersLink-1)  // cas dernier élément
+			if(i==numbersLink-1)  // cas dernier element
 			{
 				int k=1;
 				if(compare(listLink.get(i),listLink.get(i-k)))
