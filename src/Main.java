@@ -46,8 +46,6 @@ public class Main {
 				
 				applyAlgoSemiGlobal(collection,1);
 				applyAlgoSemiGlobal(collection,2);
-				applyAlgoSemiGlobal(collection,3);
-				applyAlgoSemiGlobal(collection,4);
 				
 //				long test1=System.currentTimeMillis();
 //				applyAlgoSemiGlobal(collection,1);
@@ -214,16 +212,6 @@ public class Main {
 			 chaine2=frag2.getInverseComplementaire();
 		break;
 		
-		case 3: // standard et inverse
-			 chaine1=frag1.getChaine();
-			 chaine2=frag2.getInverse();
-		
-			break;
-			
-		case 4: // standard et Complementaire
-			chaine1=frag1.getChaine();
-			chaine2=frag2.getComplementaire();
-			break;
 		default:
 			 chaine1=frag1.getChaine();
 			 chaine2=frag2.getChaine();
@@ -244,95 +232,27 @@ public class Main {
 		{
 		case 1: // standard et standard
 			// n n
-			link=new Link(frag1.getId(),frag2.getId(),false,false,false,false,max1); 
+			link=new Link(frag1.getId(),frag2.getId(),false,false,max1); 
 			listLink.add((Link) link);
-			link=new Link(frag2.getId(),frag1.getId(),false,false,false,false,max2);
+			link=new Link(frag2.getId(),frag1.getId(),false,false,max2);
 			listLink.add((Link) link);
-			// c c
-			link=new Link(frag1.getId(),frag2.getId(),true,true,false,false,max1); 
-			listLink.add((Link) link);
-			link=new Link(frag2.getId(),frag1.getId(),true,true,false,false,max2);
-			listLink.add((Link) link);
-			// i i
-			link=new Link(frag1.getId(),frag2.getId(),false,true,false,true,max2); 
-			listLink.add((Link) link);
-			link=new Link(frag2.getId(),frag1.getId(),false,true,false,true,max1);
-			listLink.add((Link) link);
+			
 			// ci ci
-			link=new Link(frag1.getId(),frag2.getId(),true,true,true,true,max2); 
-			listLink.add((Link) link);
-			link=new Link(frag2.getId(),frag1.getId(),true,true,true,true,max1);
-			listLink.add((Link) link);
+			//link=new Link(frag1.getId(),frag2.getId(),true,true,max2); 
+			//link=new Link(frag2.getId(),frag1.getId(),true,true,max1);
 		break;
 		case 2: // standard et Compl.inverse
 			// n ci
-			link=new Link(frag1.getId(),frag2.getId(),false,false,true,true,max1);
+			link=new Link(frag1.getId(),frag2.getId(),false,true,max1);
 			listLink.add((Link) link);
-			link=new Link(frag2.getId(),frag1.getId(),true,true,false,false,max2);
+			link=new Link(frag2.getId(),frag1.getId(),true,false,max2);
 			listLink.add((Link) link);
 			// ci n
-			link=new Link(frag1.getId(),frag2.getId(),true,true,false,false,max2);
-			listLink.add((Link) link);
-			link=new Link(frag2.getId(),frag1.getId(),false,false,true,true,max1);
-			listLink.add((Link) link);
-			// i c
-			link=new Link(frag1.getId(),frag2.getId(),false,true,true,false,max2);
-			listLink.add((Link) link);
-			link=new Link(frag2.getId(),frag1.getId(),true,false,true,false,max1);
-			listLink.add((Link) link);
-			// c i
-			link=new Link(frag1.getId(),frag2.getId(),true,false,false,true,max1);
-			listLink.add((Link) link);
-			link=new Link(frag2.getId(),frag1.getId(),false,true,true,false,max2);
-			listLink.add((Link) link);
+			//link=new Link(frag1.getId(),frag2.getId(),true,false,max2);
+			//link=new Link(frag2.getId(),frag1.getId(),false,true,max1);
+			
 		break;
 		
-		case 3: // standard et inverse
-			// n i
-			link=new Link(frag1.getId(),frag2.getId(),false,false,false,true,max1);
-			listLink.add((Link) link);
-			link=new Link(frag2.getId(),frag1.getId(),false,true,false,false,max2);
-			listLink.add((Link) link);
-			// i n
-			link=new Link(frag1.getId(),frag2.getId(),false,true,false,false,max2);
-			listLink.add((Link) link);
-			link=new Link(frag2.getId(),frag1.getId(),false,false,false,true,max1);
-			listLink.add((Link) link);
-			// ci c
-			link=new Link(frag1.getId(),frag2.getId(),true,true,true,false,max2);
-			listLink.add((Link) link);
-			link=new Link(frag2.getId(),frag1.getId(),true,false,true,true,max1);
-			listLink.add((Link) link);
-			// c ci
-			link=new Link(frag1.getId(),frag2.getId(),true,true,true,false,max1);
-			listLink.add((Link) link);
-			link=new Link(frag2.getId(),frag1.getId(),true,false,true,true,max2);
-			listLink.add((Link) link);
-			break;
-			
-		case 4: // standard et Complementaire
-			// n c
-			link=new Link(frag1.getId(),frag2.getId(),false,false,true,false,max1);
-			listLink.add((Link) link);
-			link=new Link(frag2.getId(),frag1.getId(),true,false,false,false,max2);
-			listLink.add((Link) link);
-			// c n
-			link=new Link(frag1.getId(),frag2.getId(),true,false,false,false,max1);
-			listLink.add((Link) link);
-			link=new Link(frag2.getId(),frag1.getId(),false,false,true,false,max2);
-			listLink.add((Link) link);
-			// i ci
-			link=new Link(frag1.getId(),frag2.getId(),false,true,true,true,max2);
-			listLink.add((Link) link);
-			link=new Link(frag2.getId(),frag1.getId(),true,true,false,true,max1);
-			listLink.add((Link) link);
-			// ci i
-			link=new Link(frag1.getId(),frag2.getId(),true,true,false,true,max2);
-			listLink.add((Link) link);
-			link=new Link(frag2.getId(),frag1.getId(),false,true,true,true,max1);
-			listLink.add((Link) link);
-			
-			break;
 		default:
 		break;
 		}
