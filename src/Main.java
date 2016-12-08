@@ -223,9 +223,9 @@ public class Main {
 		frag2.actualiseSize();		
 		int[][] matrice=Algo.semiGlobal(chaine1, chaine2, frag1.getSize()+1, frag2.getSize()+1);
 
-			int max1= Algo.findMaxRow(matrice[frag1.getSize()]);
+			int max1= Algo.findMaxRow(matrice[frag1.getSize()])[0]; 
 			System.out.println(max1);
-			int max2=Algo.findMaxColumn(matrice);
+			int max2=Algo.findMaxColumn(matrice)[0];
 			System.out.println(max2);
 
 		switch(mode)

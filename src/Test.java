@@ -10,9 +10,23 @@ public class Test {
 			}
 			System.out.println();
 		}
-		int max1 = Algo.findMaxRow(matrice[s.length()]);
+		int row[] = Algo.findMaxRow(matrice[s.length()]);
+		int max1 = row[0];
 		System.out.println(max1);
-		int max2= Algo.findMaxColumn(matrice);
+		int column[] = Algo.findMaxColumn(matrice);
+		int max2= column[0];
 		System.out.println(max2);
+		int tab1[] = Algo.traceWayColumn(s, t, matrice, column[1]);
+		int tab2[] = Algo.traceWayRow(s, t, matrice, row[1]);
+		System.out.println("confondu, coord. deb, coord. fin");
+		System.out.println("column ");
+		for (int i=0; i<tab1.length; i++){
+			System.out.print(tab1[i]+" ");
+		}System.out.println();
+		System.out.println("row");
+		for (int i=0; i<tab2.length; i++){
+			System.out.print(tab2[i]+" ");
+		}
+		System.out.println();
 	}
 }
