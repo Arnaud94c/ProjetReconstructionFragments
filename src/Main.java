@@ -91,10 +91,11 @@ public class Main {
 		}
 		
 		Graphe graphe = new Graphe(listNode,listLink);
-		System.out.print("Tri decroissant en cours ...");
-		graphe.triArcDecroissant();
+		System.out.println("Tri decroissant en cours ...");
+		graphe.triHeap();
 		Greedy greedy = new Greedy(graphe);
 		greedy.applyAlgo();
+		System.out.println("Chemin calcule");
 		
 		
 	}
@@ -116,9 +117,9 @@ public class Main {
 		
 		try
 		{	
-		//	ficTexte= new BufferedReader(new FileReader(new File(".\\src\\collection2.fasta")));
+			ficTexte= new BufferedReader(new FileReader(new File(".\\src\\Ressources\\Collection1-Simplifiée.FASTA")));
 				
-			ficTexte= new BufferedReader(new FileReader(new File("Ressources/Collection1-Simplifiee.FASTA")));
+		//	ficTexte= new BufferedReader(new FileReader(new File("Ressources/Collection1-Simplifiee.FASTA")));
 			
 			
 			while (ficTexte !=null)

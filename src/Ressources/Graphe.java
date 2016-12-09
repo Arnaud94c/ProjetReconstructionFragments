@@ -13,54 +13,27 @@ public class Graphe
 		this.listLink=listLink;
 	}
 	
-	
-	public void triArcDecroissant()
-	{
-		int numbersLink=listLink.size();
-		for (int i=0;i<numbersLink;i++)
-		{
-			if(i==numbersLink-1)  // cas dernier element
-			{
-				int k=1;
-				if(compare(listLink.get(i),listLink.get(i-k)))
-				{
-					//int value= listLink.get(i).getValue();
-					boolean find=false;
-					while( find==false)
-					{
-						k++;
-						boolean research=compare(listLink.get(i),listLink.get(i-k));
-						if(research)
-						{
-							Link tmp=listLink.get(i);
-							listLink.set(i,listLink.get(i-k));
-							listLink.set(i-k, tmp);
-							find=true;
-						}
-						
-					}
-				}
-			}else
-			{
-					boolean test=compare (listLink.get(i),listLink.get(i+1));
-					if(test)
-					{
-						Link tmp=listLink.get(i);
-						listLink.set(i, listLink.get(i+1));
-						listLink.set(i+1,tmp);
-						i=0;
-					}
-			}
-			
-			
-		
-			
-			
-		}
-		
-		
-	}
 
+
+	public void triHeap()
+	{
+		Heap heap = new Heap(listLink);
+		
+		for(Link k:  listLink)
+		{
+			System.out.print(k.getValue()+" ");
+		}
+		this.listLink=heap.sort();
+		System.out.println("");
+		System.out.println("valeurs triées");
+		for (Link l: listLink)
+		{
+			System.out.print(l.getValue()+" ");
+		}
+		System.out.println("");
+	}
+	
+	
 	public ArrayList<Link> getLink()
 	{
 		return this.listLink;
@@ -83,29 +56,7 @@ public class Graphe
 	
 	
 	
-	
-	private boolean compare(Link first,Link second)
-	{
-		int valueFirst=first.getValue();
-		int valueSecond=second.getValue();
-		
-		 if(valueFirst==valueSecond)
-		 {
-			 return false;
-		 }else
-		 {
-			 if(valueFirst<valueSecond)
-			 {
-				 return true;
-			 }else
-			 {
-				 return false;
-			 }
-			 
-		 }
-		
-		
-	}
+
 	
 
 }
