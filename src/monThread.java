@@ -62,10 +62,10 @@ public class monThread extends Thread
 //			System.out.println();
 //		}
 		
-			int max1= Algo.findMaxRow(matrice[frag1.getSize()]);
-			System.out.println(max1);
-			int max2=Algo.findMaxColumn(matrice);
-			System.out.println(max2);
+		//	int max1= Algo.findMaxRow(matrice[frag1.getSize()]);
+		//	System.out.println(max1);
+		//	int max2=Algo.findMaxColumn(matrice);
+		//	System.out.println(max2);
 		}catch(Exception e)
 		{
 			System.out.println(e);
