@@ -11,9 +11,11 @@ import java.util.List;
 public class CollectionFragments
 {
 	
-	
+	// liste de l'ensemble des fragments
 	private List<Fragment> listFragments;
+	// indice de l'élément que l'on va utilise comme comparateur.
 	private int indexComparateur=0;
+	// indice de l'élément que l'on va comparer.
 	private int indexCompare=1;
 	
 	

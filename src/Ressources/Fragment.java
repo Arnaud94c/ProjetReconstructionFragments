@@ -1,8 +1,7 @@
 package Ressources;
 
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * Fragment
