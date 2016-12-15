@@ -13,9 +13,9 @@ public class CollectionFragments
 	
 	// liste de l'ensemble des fragments
 	private List<Fragment> listFragments;
-	// indice de l'élément que l'on va utilise comme comparateur.
+	// indice de l'element que l'on va utilise comme comparateur.
 	private int indexComparateur=0;
-	// indice de l'élément que l'on va comparer.
+	// indice de l'element que l'on va comparer.
 	private int indexCompare=1;
 	
 	
@@ -29,7 +29,7 @@ public class CollectionFragments
 	
 	/**
 	 * Ajout d'un fragment.
-	 * @param fragment fragment à ajouter.
+	 * @param fragment fragment a ajouter.
 	 */
 	
 	public void addFragments(Fragment fragment)
@@ -50,7 +50,7 @@ public class CollectionFragments
 	}
 	
 	/**
-	 * Retourne le fragment correspondant à l'index du fragment compare.
+	 * Retourne le fragment correspondant a l'index du fragment compare.
 	 * @return
 	 */
 	

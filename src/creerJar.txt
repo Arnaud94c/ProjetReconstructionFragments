@@ -1,0 +1,8 @@
+jar cf FragmentAssembler.jar *.class Ressources/*.class
+
+ajouter au fichier MANIFEST.MF:
+ Main-Class: Main
+
+Pour lancer:
+java -jar FragmentAssembler.jar "Ressources/Collection1-Simplifiee.FASTA"
+

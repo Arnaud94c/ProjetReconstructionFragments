@@ -17,6 +17,7 @@ public class Main {
 	
 	    public static ArrayList<Node> listNode= new ArrayList<Node>();
 		public static ArrayList<Link> listLink= new ArrayList<Link>();
+	public static String fileName;
 
 	public static  void main(String[] args) throws IOException 
 	{
@@ -24,7 +25,8 @@ public class Main {
 		
 		CollectionFragments collection = new CollectionFragments();
 		System.out.println("Bonjour");
-		collection=readFile();
+		fileName = args[0];
+		collection=readFile(fileName);
 		System.out.println("Collection de fragments encodees");
 		
 		
@@ -106,7 +108,7 @@ public class Main {
 	 * @throws IOException
 	 */
 	
-	public static  CollectionFragments readFile () throws IOException
+	public static  CollectionFragments readFile (String name) throws IOException
 	{
 		String ligne="";
 		BufferedReader ficTexte;
@@ -117,10 +119,11 @@ public class Main {
 		
 		try
 		{	
-			ficTexte= new BufferedReader(new FileReader(new File(".\\src\\Ressources\\Collection1-Simplifiée.FASTA")));
+		//	ficTexte= new BufferedReader(new FileReader(new File(".\\src\\Ressources\\Collection1-Simplifiee.FASTA")));
 				
 		//	ficTexte= new BufferedReader(new FileReader(new File("Ressources/Collection1-Simplifiee.FASTA")));
 			
+			ficTexte= new BufferedReader(new FileReader(new File(name)));
 			
 			while (ficTexte !=null)
 			{
