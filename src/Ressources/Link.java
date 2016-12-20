@@ -84,6 +84,8 @@ public class Link
 		return this.chaineDestinationCompl;
 	}
 	
-	
+	public String toString(){
+		return "Link value: "+this.getValue()+" Source: "+this.sourceId+" Dest: "+this.destinationId+"\n";
+	}
 
 }
