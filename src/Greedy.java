@@ -116,16 +116,17 @@ public class Greedy
 
 			if(hamiltonienWay.size()==(graphe.getNode().size()-1)) // si tous les noeuds sont atteints.
 			{
-				System.out.println("Set");
+				
+				System.out.println("link");
+				for (Link lien :hamiltonienWay){
+					System.out.println(lien);
+				}
+				System.out.println("chemin");
 				for (Set s :listSet){
 					for (int i : s.getlistId()){
 						System.out.print(i+" ");
 					}
 					System.out.println();
-				}
-				System.out.println("link");
-				for (Link lien :hamiltonienWay){
-					System.out.println(lien);
 				}
 				break;
 				
