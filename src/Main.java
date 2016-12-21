@@ -18,6 +18,7 @@ public class Main {
 	    public static ArrayList<Node> listNode= new ArrayList<Node>();
 		public static ArrayList<Link> listLink= new ArrayList<Link>();
 	public static String fileName;
+	public static String s;
 
 	public static  void main(String[] args) throws IOException 
 	{
@@ -36,15 +37,16 @@ public class Main {
 		{
 			Node node = new Node(j);
 			listNode.add(node);
+			System.out.println(j);
 			while(collection.giveAdjustedIndex()<(collection.giveNumberFragments()))
 			{
-				System.getProperty("line.separator");
-				System.out.printf("comparateur n: ");
-				System.out.println(j);
-				System.getProperty("line.separator");
-				System.out.printf("compare n: ");
-				System.out.println(collection.giveAdjustedIndex());
-				System.getProperty("line.separator");
+				//System.getProperty("line.separator");
+				//System.out.printf("comparateur n: ");
+				//System.out.println(j);
+				//System.getProperty("line.separator");
+				//System.out.printf("compare n: ");
+				//System.out.println(collection.giveAdjustedIndex());
+				//System.getProperty("line.separator");
 				
 				applyAlgoSemiGlobal(collection,1);
 				applyAlgoSemiGlobal(collection,2);
@@ -96,7 +98,8 @@ public class Main {
 		System.out.println("Tri decroissant en cours ...");
 		graphe.triHeap();
 		Greedy greedy = new Greedy(graphe);
-		greedy.applyAlgo();
+		ArrayList<Integer> chemin = greedy.applyAlgo();
+		s = Unifier.unify(chemin, graphe.getNode(), collection);
 		System.out.println("Chemin calcule");
 		
 		
@@ -213,7 +216,7 @@ public class Main {
 		break;
 		case 2: // standard et Compl.inverse
 			 chaine1=frag1.getChaine();
-			 chaine2=frag2.getInverseComplementaire();
+			 chaine2=frag2.getComplementaire();
 		break;
 		
 		default:
@@ -228,9 +231,9 @@ public class Main {
 		int[][] matrice=Algo.semiGlobal(chaine1, chaine2, frag1.getSize()+1, frag2.getSize()+1);
 
 			int max1= Algo.findMaxRow(matrice[frag1.getSize()])[0]; 
-			System.out.println(max1);
+			//System.out.println(max1);
 			int max2=Algo.findMaxColumn(matrice)[0];
-			System.out.println(max2);
+			//System.out.println(max2);
 
 		switch(mode)
 		{

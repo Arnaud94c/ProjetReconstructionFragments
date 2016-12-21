@@ -50,35 +50,11 @@ public class Fragment
 	 * Retourne la chaine inverse complemente
 	 * @return
 	 */
-	
-	public String getInverseComplementaire()
-	{
-		StringBuilder buff=new StringBuilder(this.chaineCompl);
-		String inverse= buff.reverse().toString();
-		return inverse;
-	}
-
-	/**
-	 * Retourne la chaine complemente
-	 * @return
-	 */
-	
 	public String getComplementaire()
 	{
 		return this.chaineCompl;
 	}
-	
-	/**
-	 * Retourne la chaine inverse
-	 * @return
-	 */
-	
-	public String getInverse()
-	{
-		StringBuilder buff=new StringBuilder(this.chaineString);
-		String inverse= buff.reverse().toString();
-		return inverse;
-	}
+
 	/**
 	 * Ajoute un caractere a la chaine.
 	 * @param chaine caractere
@@ -118,7 +94,8 @@ public class Fragment
 				break;
 			
 			}
-		
+			StringBuilder buff=new StringBuilder(this.chaineCompl);
+			this.chaineCompl= buff.reverse().toString();
 			
 		}
 	}

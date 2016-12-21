@@ -10,7 +10,6 @@ public class Greedy
 	
 	private Graphe graphe;
 	private ArrayList<Set> listSet;
-	private ArrayList<Link> chainLink;
 	public ArrayList<Link>hamiltonienWay;
 	Set tmp, tmp2;
 	
@@ -23,7 +22,7 @@ public class Greedy
 		
 	}
 	
-	public void applyAlgo()
+	public ArrayList<Integer> applyAlgo()
 	{
 		
 		Node source,dest;
@@ -74,8 +73,8 @@ public class Greedy
 			}		
 			// on prend le complementaire du lien
 			else if(!dest.getOut() && !source.getIn()){
-				if(l.getChaineSourceCompl() && l.getChaineDestinationCompl() ){
-					if((source.getCompl() || (!source.getOut() && !source.getIn())) && (dest.getCompl() || (!dest.getOut() && !dest.getIn()))) // ci ci : on doit inverser la source et la destination pour avoir le bon max correspondant
+				if(!l.getChaineSourceCompl() && !l.getChaineDestinationCompl() ){
+					if((source.getCompl() || (!source.getOut() && !source.getIn())) && (dest.getCompl() || (!dest.getOut() && !dest.getIn()))) // n n -> ci ci : on doit inverser la source et la destination pour avoir le bon max correspondant
 					{
 						link =new Link(l.getDestinationId(),l.getSourceId(),true,true,l.getValue()); 
 						if (!loop(link)){
@@ -89,7 +88,7 @@ public class Greedy
 					}
 				}
 				else if(!l.getChaineSourceCompl() && l.getChaineDestinationCompl() ){  // n ci -> ci n 
-					if(!source.getCompl() && (dest.getCompl() || (!dest.getOut() && !dest.getIn()))){
+					if((source.getCompl() || (!source.getOut() && !source.getIn())) && !dest.getCompl() ){
 						link =new Link(l.getDestinationId(),l.getSourceId(),true,false,l.getValue()); 
 						if (!loop(link)){
 							hamiltonienWay.add(link);			
@@ -101,7 +100,7 @@ public class Greedy
 					}
 				}
 				else if(l.getChaineSourceCompl() && !l.getChaineDestinationCompl() ){  // ci n -> n ci
-					if((source.getCompl() || (!source.getOut() && !source.getIn())) && !dest.getCompl() ){
+					if(!source.getCompl() && (dest.getCompl() || (!dest.getOut() && !dest.getIn()))){
 						link =new Link(l.getDestinationId(),l.getSourceId(),false,true,l.getValue()); 
 						if (!loop(link)){
 							hamiltonienWay.add(link);			
@@ -128,16 +127,16 @@ public class Greedy
 					}
 					System.out.println();
 				}
-				break;
 				
+				break;
+			
 			}
-		}	
+		}
+		return listSet.get(0).getlistId();
 	}
 	
 	public void setInit(){
 		listSet = new ArrayList<Set>();
-		chainLink = new ArrayList<Link>();
-		chainLink.add(graphe.getLink(0));
 		tmp = null;
 		tmp2 = null;
 	}
