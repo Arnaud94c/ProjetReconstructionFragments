@@ -20,7 +20,10 @@ public class Main {
 		public static ArrayList<Link> listLink= new ArrayList<Link>();
 		public static String filePath;
 		public static String s;
+		public static String sic;
 		public static String fileName;
+		public static String outfile;
+		public static String outicfile;
 
 	public static  void main(String[] args) throws IOException 
 	{
@@ -103,12 +106,43 @@ public class Main {
 		ArrayList<Integer> chemin = greedy.applyAlgo();
 		s = Unifier.unify(chemin, graphe.getNode(), collection);
 		System.out.println("Chemin calcule");
-		String fastaPath=CreateFastaFile();
+		String fastaPath=CreateFastaFile(args[2],s);
+		System.out.println("Le fichier de resultat se situe:"+fastaPath);
+		sic =s;
+		for (int i=0; i<s.length();i++)
+		{
+			char caractere=s.charAt(i);
+			switch(caractere)
+			{
+			case 'a':
+				sic=replaceChar(sic,i,'t');
+			break;
+			case 'c':
+				sic=replaceChar(sic,i,'g');
+				break;
+			case 'g':
+				sic=replaceChar(sic,i,'c');
+				break;
+			case 't':
+				sic=replaceChar(sic,i,'a');
+			break;
+			default:
+				break;
+			
+			}
+			StringBuilder buff=new StringBuilder(sic);
+			sic= buff.reverse().toString();
+			
+		}
+		fastaPath=CreateFastaFile(args[4],sic);
 		System.out.println("Le fichier de resultat se situe:"+fastaPath);
 		
 		
 	}
-	
+	public static String replaceChar(String s,int position, char c)
+	{
+		return s.substring(0,position)+ c+ s.substring(position+1);
+	}
 	/**
 	 * Lecture du fichier
 	 * @return Collection de fragments
@@ -196,17 +230,17 @@ public class Main {
 	 * Ecriture du fichier Fasta
 	 */
 	
-	public static String CreateFastaFile()
+	public static String CreateFastaFile(String fileN, String data)
 	{
-		File file = new File("resultat.FASTA");
+		File file = new File(fileN);
 		FileWriter writer;
 		
 		try
 		{
 			writer= new FileWriter(file);
 			// > Groupe-num_groupe Collection num_collection Longueur longueur_sequence_cible
-			writer.write(">"+"Groupe-num"+" "+fileName+" "+"Longueur"+s.length()+"\r\n");
-			writer.write(s);
+			writer.write(">"+"Groupe-num"+" "+fileName+" "+"Longueur"+data.length()+"\r\n");
+			writer.write(data);
 			writer.close();
 		}catch(Exception e)
 		{

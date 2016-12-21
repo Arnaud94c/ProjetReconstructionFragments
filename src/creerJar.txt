@@ -4,5 +4,5 @@ ajouter au fichier MANIFEST.MF:
  Main-Class: Main
 
 Pour lancer:
-java -jar FragmentAssembler.jar "Ressources/Collection1-Simplifiee.FASTA"
+java -jar FragmentAssembler.jar "Ressources/Collections/collection1.fasta" -out "Ressources/Collections/resultat1.fasta" -out-ic "Ressources/Collections/resultatic1.fasta"
 
