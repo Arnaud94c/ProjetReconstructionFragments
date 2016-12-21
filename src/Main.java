@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -17,8 +18,9 @@ public class Main {
 	
 	    public static ArrayList<Node> listNode= new ArrayList<Node>();
 		public static ArrayList<Link> listLink= new ArrayList<Link>();
-	public static String fileName;
-	public static String s;
+		public static String filePath;
+		public static String s;
+		public static String fileName;
 
 	public static  void main(String[] args) throws IOException 
 	{
@@ -26,8 +28,8 @@ public class Main {
 		
 		CollectionFragments collection = new CollectionFragments();
 		System.out.println("Bonjour");
-		fileName = args[0];
-		collection=readFile(fileName);
+		filePath = args[0];
+		collection=readFile(filePath);
 		System.out.println("Collection de fragments encodees");
 		
 		
@@ -101,6 +103,8 @@ public class Main {
 		ArrayList<Integer> chemin = greedy.applyAlgo();
 		s = Unifier.unify(chemin, graphe.getNode(), collection);
 		System.out.println("Chemin calcule");
+		String fastaPath=CreateFastaFile();
+		System.out.println("Le fichier de resultat se situe:"+fastaPath);
 		
 		
 	}
@@ -122,11 +126,11 @@ public class Main {
 		
 		try
 		{	
-		//	ficTexte= new BufferedReader(new FileReader(new File(".\\src\\Ressources\\Collection1-Simplifiee.FASTA")));
-				
-		//	ficTexte= new BufferedReader(new FileReader(new File("Ressources/Collection1-Simplifiee.FASTA")));
-			
-			ficTexte= new BufferedReader(new FileReader(new File(name)));
+
+			File file= new File(name);
+	     	fileName=file.getName();
+			ficTexte= new BufferedReader(new FileReader(file));
+		
 			
 			while (ficTexte !=null)
 			{
@@ -188,6 +192,32 @@ public class Main {
 		
 	}
 
+	/**
+	 * Ecriture du fichier Fasta
+	 */
+	
+	public static String CreateFastaFile()
+	{
+		File file = new File("resultat.FASTA");
+		FileWriter writer;
+		
+		try
+		{
+			writer= new FileWriter(file);
+			// > Groupe-num_groupe Collection num_collection Longueur longueur_sequence_cible
+			writer.write(">"+"Groupe-num"+" "+fileName+" "+"Longueur"+s.length()+"\r\n");
+			writer.write(s);
+			writer.close();
+		}catch(Exception e)
+		{
+			System.out.println(e);
+		}
+		 String path=file.getAbsolutePath();
+		return path;
+	}
+	
+	
+	
 	/**
 	 * Application de l'algorithme semi-global.
 	 * @param collection collection comprenant les fragments
