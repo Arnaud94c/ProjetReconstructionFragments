@@ -2,11 +2,11 @@ import Ressources.CollectionFragments;
 import Ressources.Fragment;
 
 
-public class monThread extends Thread
+public class MyThread extends Thread
 {
 	private CollectionFragments collection=null;
 	private int mode=0;
-	public monThread(CollectionFragments collection,int mode)
+	public MyThread(CollectionFragments collection,int mode)
 	{
 		this.collection=collection;
 		this.mode=mode;

@@ -28,19 +28,8 @@ public class Graphe
 	public void triHeap()
 	{
 		Heap heap = new Heap(listLink);
-		
-		for(Link k:  listLink)
-		{
-			System.out.print(k.getValue()+" ");
-		}
 		this.listLink=heap.sort();
-		System.out.println("");
-		System.out.println("valeurs triées");
-		for (Link l: listLink)
-		{
-			System.out.print(l.getValue()+" ");
-		}
-		System.out.println("");
+		
 	}
 	
 	
