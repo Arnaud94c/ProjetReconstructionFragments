@@ -23,12 +23,10 @@ public class Unifier{
 			else current = collection.getFragment(i).getChaine();
 			matrice = Algo.semiGlobal(current, previous, current.length(), previous.length());
 			imax = Algo.findMaxColumn(matrice);
-			//int[] traceWayRow(String s, String t, int[][] matrice, int indice){
 			index = imax[1];
 			s += current.substring(index);
 			previous = current;
 		}
-		//System.out.println(s);
 		return s;
 	}
 }

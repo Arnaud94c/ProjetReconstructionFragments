@@ -128,7 +128,7 @@ public class Greedy
 	}
 	
 
-	
+	//verification de boucle
 	public boolean loop(Link l)
 	{
 		for (Set s :listSet){

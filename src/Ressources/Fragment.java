@@ -16,7 +16,7 @@ public class Fragment
 	private int id= 0;
 	//taille de la chaine
 	private int size;
-	//chaine complemente
+	//chaine complementaire inverse
 	private String chaineCompl;
 
 	/**

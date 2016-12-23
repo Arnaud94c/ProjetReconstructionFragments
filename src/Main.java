@@ -190,7 +190,7 @@ public class Main {
 		{
 			writer= new FileWriter(file);
 			// > Groupe-num_groupe Collection num_collection Longueur longueur_sequence_cible
-			writer.write(">"+"Groupe num 6"+" "+"Collection "+fileName+" "+"Longueur "+data.length()+"\r\n");
+			writer.write(">"+"Groupe-10"+" "+"Collection "+fileName+" "+"Longueur "+data.length()+"\r\n");
 			writer.write(data);
 			writer.close();
 		}catch(Exception e)
