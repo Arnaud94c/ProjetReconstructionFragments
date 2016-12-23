@@ -30,73 +30,24 @@ public class Main {
 		// TODO Auto-generated method stub
 		
 		CollectionFragments collection = new CollectionFragments();
-		System.out.println("Bonjour");
 		filePath = args[0];
 		collection=readFile(filePath);
 		System.out.println("Collection de fragments encodees");
-		
-		
-		
 		
 		for(int j=0;j<collection.giveNumberFragments();j++)
 		{
 			Node node = new Node(j);
 			listNode.add(node);
-			System.out.println(j);
 			while(collection.giveAdjustedIndex()<(collection.giveNumberFragments()))
-			{
-				//System.getProperty("line.separator");
-				//System.out.printf("comparateur n: ");
-				//System.out.println(j);
-				//System.getProperty("line.separator");
-				//System.out.printf("compare n: ");
-				//System.out.println(collection.giveAdjustedIndex());
-				//System.getProperty("line.separator");
-				
+			{	
 				applyAlgoSemiGlobal(collection,1);
-				applyAlgoSemiGlobal(collection,2);
-				
-//				long test1=System.currentTimeMillis();
-//				applyAlgoSemiGlobal(collection,1);
-//				long test2= System.currentTimeMillis()-test1;
-//				long test3=System.currentTimeMillis();
-//				applyAlgoSemiGlobal(collection,2);
-//				long test4= System.currentTimeMillis()-test3;
-//				long test5=System.currentTimeMillis();
-//				applyAlgoSemiGlobal(collection,3);
-//				long test6= System.currentTimeMillis()-test5;
-				
-				
-				
-//				ThreadGroup tg= new ThreadGroup("monGroupe");
-//				
-//				monThread t1= new monThread(collection,1);
-//				monThread t2= new monThread(collection,2);
-//				monThread t3= new monThread(collection,3);
-//				
-//				t1.start();
-//				t2.start();
-//				t3.start();
-//				
-//				try
-//				{
-//					Thread.currentThread().sleep(5);
-//				}catch(InterruptedException e)
-//				{
-//					e.printStackTrace();
-//				}
-//				tg.interrupt();
-				
+				applyAlgoSemiGlobal(collection,2);	
 				collection.incrementIndexCompare();
-				
-			
-				
 			}
 			
 			collection.incrementIndexComparateur();
 			collection.adjustIndexCompare();
-			
-			
+				
 		}
 		
 		Graphe graphe = new Graphe(listNode,listLink);
@@ -239,7 +190,7 @@ public class Main {
 		{
 			writer= new FileWriter(file);
 			// > Groupe-num_groupe Collection num_collection Longueur longueur_sequence_cible
-			writer.write(">"+"Groupe-num"+" "+fileName+" "+"Longueur"+data.length()+"\r\n");
+			writer.write(">"+"Groupe num 6"+" "+"Collection "+fileName+" "+"Longueur "+data.length()+"\r\n");
 			writer.write(data);
 			writer.close();
 		}catch(Exception e)
@@ -295,9 +246,7 @@ public class Main {
 		int[][] matrice=Algo.semiGlobal(chaine1, chaine2, frag1.getSize()+1, frag2.getSize()+1);
 
 			int max1= Algo.findMaxRow(matrice[frag1.getSize()])[0]; 
-			//System.out.println(max1);
 			int max2=Algo.findMaxColumn(matrice)[0];
-			//System.out.println(max2);
 
 		switch(mode)
 		{

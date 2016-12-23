@@ -115,21 +115,7 @@ public class Greedy
 
 			if(hamiltonienWay.size()==(graphe.getNode().size()-1)) // si tous les noeuds sont atteints.
 			{
-				
-				System.out.println("link");
-				for (Link lien :hamiltonienWay){
-					System.out.println(lien);
-				}
-				System.out.println("chemin");
-				for (Set s :listSet){
-					for (int i : s.getlistId()){
-						System.out.print(i+" ");
-					}
-					System.out.println();
-				}
-				
 				break;
-			
 			}
 		}
 		return listSet.get(0).getlistId();
@@ -147,7 +133,7 @@ public class Greedy
 	{
 		for (Set s :listSet){
 			if(s.isFirstLast(l)) {
-				System.out.println("loop");
+				
 				return true;
 				 
 			}
@@ -163,23 +149,23 @@ public class Greedy
 			else if(s.getLast() == l.getSourceId()){ tmp2 = s;}
 		}
 		if (tmp!=null && tmp2!=null){
-			System.out.println("fusion");
+		
 			listSet.get(listSet.indexOf(tmp2)).union(tmp);
 			listSet.remove(listSet.indexOf(tmp));
 			tmp=null;
 			tmp2=null;
 		}
 		else if (tmp==null && tmp2==null){
-			System.out.println("creation");
+			
 			listSet.add(new Set(l));
 		}
 		else if (tmp==null){
-			System.out.println("mis derriere");
+			
 			listSet.get(listSet.indexOf(tmp2)).putLast(l.getDestinationId());
 			tmp2=null;
 		}
 		else {
-			System.out.println("mis devant");
+			
 			listSet.get(listSet.indexOf(tmp)).putFirst(l.getSourceId());
 			tmp=null;
 		}
