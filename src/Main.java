@@ -6,6 +6,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import Ressources.CollectionFragments;
 import Ressources.Fragment;
@@ -24,32 +31,87 @@ public class Main {
 		public static String fileName;
 		public static String outfile;
 		public static String outicfile;
+		
+		public static long time;
 
-	public static  void main(String[] args) throws IOException 
+	public static  void main(String[] args) throws IOException, InterruptedException 
 	{
 		// TODO Auto-generated method stub
 		
-		CollectionFragments collection = new CollectionFragments();
+		 CollectionFragments collection = new CollectionFragments();
 		filePath = args[0];
+//		filePath="C:\\Users\\Arnaud\\Documents\\FragmentsReconstruction\\ReconstructionFragments\\files\\Collection2S.FASTA";
 		collection=readFile(filePath);
-		System.out.println("Collection de fragments encodees");
 		
+		final CollectionFragments collection2= collection;
+		
+		
+		System.out.println("Collection de fragments encodees");
+//		time=System.currentTimeMillis();
+		
+		short processeurs=(short) Runtime.getRuntime().availableProcessors();
+			
+		/*
 		for(int j=0;j<collection.giveNumberFragments();j++)
 		{
 			Node node = new Node(j);
 			listNode.add(node);
+			
 			while(collection.giveAdjustedIndex()<(collection.giveNumberFragments()))
 			{	
 				applyAlgoSemiGlobal(collection,1);
 				applyAlgoSemiGlobal(collection,2);	
 				collection.incrementIndexCompare();
 			}
-			
-			collection.incrementIndexComparateur();
-			collection.adjustIndexCompare();
 				
+			collection.incrementIndexComparateur();
+			collection.adjustIndexCompare();		
+		}
+		*/
+		
+		for (int j=0;j<collection2.giveNumberFragments();j++)
+		{
+			Node node =new Node(j);
+			listNode.add(node);
+			ExecutorService executor= new ThreadPoolExecutor(4,processeurs,60,TimeUnit.SECONDS,new LinkedBlockingQueue<Runnable>());
+			final int comparateur=j;
+			
+			for( int k=collection2.giveAdjustedIndex();k<collection2.giveNumberFragments()-1;k++)
+			{
+					executor.submit(new Runnable()
+					{
+					@Override
+					public void run()
+					{	
+				
+						try
+						{							
+									applyAlgoSemiGlobal(collection2.getFragment(comparateur),collection2.getFragment(collection2.giveAdjustedIndex()),1);
+									applyAlgoSemiGlobal(collection2.getFragment(comparateur),collection2.getFragment(collection2.giveAdjustedIndex()),2);	
+								//	System.out.println("taches effectues"+collection2.giveAdjustedIndex());	
+									collection2.incrementIndexCompare();					
+						}
+						catch(Exception e)
+						{
+							System.out.println(e);
+						}
+					
+					}
+				    });	
+						
+				//comparateur et compare		
+			}
+				
+					collection2.incrementIndexComparateur();
+					collection2.adjustIndexCompare();
+					executor.shutdown();
+					executor.awaitTermination(500,TimeUnit.SECONDS);
+			
 		}
 		
+//		System.out.println("fin");
+//		time=(System.currentTimeMillis()-time)/1000;
+//		System.out.println("executer en :"+time+" secondes");
 		Graphe graphe = new Graphe(listNode,listLink);
 		System.out.println("Tri decroissant en cours ...");
 		graphe.triHeap();
@@ -209,12 +271,14 @@ public class Main {
 	 * @param mode definit si les fragments sont inverses complementaires ou pas.
 	 */
 	
-	public static void applyAlgoSemiGlobal(CollectionFragments collection,int mode)
+	//public static void applyAlgoSemiGlobal(CollectionFragments collection,int mode)
+	public static void applyAlgoSemiGlobal(Fragment frag1,Fragment frag2,int mode )
 	{
 		try
 		{
-		Fragment frag1 = collection.giveFirstFragment();
-		Fragment frag2 =collection.giveSecondFragment();
+	//	Fragment frag1 = collection.giveFirstFragment();
+	//	Fragment frag2 =collection.giveSecondFragment();
+		
 		
 		String chaine1="";
 		String chaine2="";
