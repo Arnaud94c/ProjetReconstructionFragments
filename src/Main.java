@@ -39,15 +39,15 @@ public class Main {
 		// TODO Auto-generated method stub
 		
 		 CollectionFragments collection = new CollectionFragments();
-		filePath = args[0];
-//		filePath="C:\\Users\\Arnaud\\Documents\\FragmentsReconstruction\\ReconstructionFragments\\files\\Collection2S.FASTA";
+//		filePath = args[0];
+		filePath="C:\\Users\\Arnaud\\Documents\\FragmentsReconstruction\\ReconstructionFragments\\files\\Collection2S.FASTA";
 		collection=readFile(filePath);
 		
 		final CollectionFragments collection2= collection;
 		
 		
 		System.out.println("Collection de fragments encodees");
-//		time=System.currentTimeMillis();
+		time=System.currentTimeMillis();
 		
 		short processeurs=(short) Runtime.getRuntime().availableProcessors();
 			
@@ -59,8 +59,10 @@ public class Main {
 			
 			while(collection.giveAdjustedIndex()<(collection.giveNumberFragments()))
 			{	
-				applyAlgoSemiGlobal(collection,1);
-				applyAlgoSemiGlobal(collection,2);	
+				//applyAlgoSemiGlobal(collection,1);
+				//applyAlgoSemiGlobal(collection,2);
+				applyAlgoSemiGlobal(collection.getFragment(j),collection.getFragment(collection.giveAdjustedIndex()),1);
+				applyAlgoSemiGlobal(collection.getFragment(j),collection.getFragment(collection.giveAdjustedIndex()),2);
 				collection.incrementIndexCompare();
 			}
 				
@@ -68,6 +70,7 @@ public class Main {
 			collection.adjustIndexCompare();		
 		}
 		*/
+		
 		
 		for (int j=0;j<collection2.giveNumberFragments();j++)
 		{
@@ -109,9 +112,13 @@ public class Main {
 			
 		}
 		
+		
+		
+		
+		
 //		System.out.println("fin");
-//		time=(System.currentTimeMillis()-time)/1000;
-//		System.out.println("executer en :"+time+" secondes");
+		time=(System.currentTimeMillis()-time)/1000;
+		System.out.println("executer en :"+time+" secondes");
 		Graphe graphe = new Graphe(listNode,listLink);
 		System.out.println("Tri decroissant en cours ...");
 		graphe.triHeap();
@@ -316,10 +323,14 @@ public class Main {
 		{
 		case 1: // standard et standard
 			// n n
+			synchronized(listLink)
+			{
 			link=new Link(frag1.getId(),frag2.getId(),false,false,max1); 
 			listLink.add((Link) link);
 			link=new Link(frag2.getId(),frag1.getId(),false,false,max2);
 			listLink.add((Link) link);
+			}
+		
 			
 			// ci ci
 			//link=new Link(frag1.getId(),frag2.getId(),true,true,max2); 
@@ -327,10 +338,14 @@ public class Main {
 		break;
 		case 2: // standard et Compl.inverse
 			// n ci
+			synchronized(listLink)
+			{
 			link=new Link(frag1.getId(),frag2.getId(),false,true,max1);
 			listLink.add((Link) link);
 			link=new Link(frag2.getId(),frag1.getId(),true,false,max2);
 			listLink.add((Link) link);
+			}
+			
 			// ci n
 			//link=new Link(frag1.getId(),frag2.getId(),true,false,max2);
 			//link=new Link(frag2.getId(),frag1.getId(),false,true,max1);

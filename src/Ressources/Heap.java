@@ -84,17 +84,23 @@ public class Heap
 		left=2*i;
 		right=2*i+1;
 		
-		if(left <=size && liste.get(left).getValue()> liste.get(i).getValue())
+		
+		if(left <=size && (liste.get(left).getValue()> liste.get(i).getValue()))
 		{
 			largest=left;
+				
 		}else
 		{
 			largest=i;
 		}
 		if(right <= size && liste.get(right).getValue()>liste.get(largest).getValue())
+	
 		{
-			largest=right;
+			
+				largest=right;
+			
 		}
+	
 		if(largest !=i)
 		{
 			exchange(i,largest);
