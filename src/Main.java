@@ -39,8 +39,8 @@ public class Main {
 		// TODO Auto-generated method stub
 		
 		 CollectionFragments collection = new CollectionFragments();
-//		filePath = args[0];
-		filePath="C:\\Users\\Arnaud\\Documents\\FragmentsReconstruction\\ReconstructionFragments\\files\\Collection2S.FASTA";
+		filePath = args[0];
+//		filePath="C:\\Users\\Arnaud\\Documents\\FragmentsReconstruction\\ReconstructionFragments\\files\\Collection2S.FASTA";
 		collection=readFile(filePath);
 		
 		final CollectionFragments collection2= collection;
@@ -79,7 +79,7 @@ public class Main {
 			ExecutorService executor= new ThreadPoolExecutor(4,processeurs,60,TimeUnit.SECONDS,new LinkedBlockingQueue<Runnable>());
 			final int comparateur=j;
 			
-			for( int k=collection2.giveAdjustedIndex();k<collection2.giveNumberFragments()-1;k++)
+			for( int k=collection2.giveAdjustedIndex();k<collection2.giveNumberFragments();k++)
 			{
 					executor.submit(new Runnable()
 					{
@@ -92,7 +92,12 @@ public class Main {
 									applyAlgoSemiGlobal(collection2.getFragment(comparateur),collection2.getFragment(collection2.giveAdjustedIndex()),1);
 									applyAlgoSemiGlobal(collection2.getFragment(comparateur),collection2.getFragment(collection2.giveAdjustedIndex()),2);	
 								//	System.out.println("taches effectues"+collection2.giveAdjustedIndex());	
-									collection2.incrementIndexCompare();					
+									
+									synchronized(collection2)
+									{
+										collection2.incrementIndexCompare();
+									}
+														
 						}
 						catch(Exception e)
 						{
@@ -105,16 +110,17 @@ public class Main {
 				//comparateur et compare		
 			}
 				
+				    executor.shutdown();
+					executor.awaitTermination(500,TimeUnit.SECONDS);
 					collection2.incrementIndexComparateur();
 					collection2.adjustIndexCompare();
-					executor.shutdown();
-					executor.awaitTermination(500,TimeUnit.SECONDS);
+				
 			
 		}
 		
 		
 		
-		
+	
 		
 //		System.out.println("fin");
 		time=(System.currentTimeMillis()-time)/1000;
