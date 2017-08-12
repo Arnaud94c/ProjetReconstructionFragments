@@ -9,6 +9,7 @@ public class Link
 	private int destinationId;
 	//valeur du lien (score alignement)
 	private int value=0;
+	private int[] max={0,0};
 	// indique si le noeud source est inverse et complement dans ce cas true,false sinon.
 	private boolean chaineSourceCompl;
 	// indique si le noeud destination est inverse et complement dans ce cas true,false sinon.
@@ -23,11 +24,12 @@ public class Link
 	 * @param chaineDestinationCompl noeud destination est complementaire inverse
 	 * @param value
 	 */
-	public Link (int source, int destination,boolean chaineSourceCompl,boolean chaineDestinationCompl, int value)
+	public Link (int source, int destination,boolean chaineSourceCompl,boolean chaineDestinationCompl, int[] value)
 	{
 		this.sourceId=source;
 		this.destinationId=destination;
-		this.value=value;
+		this.value=value[0];
+		this.max= value;
 		this.chaineSourceCompl=chaineSourceCompl;
 		this.chaineDestinationCompl=chaineDestinationCompl;
 	}
@@ -42,7 +44,10 @@ public class Link
 		return this.value;
 	}
 	
-	
+	public int[] getMax()
+	{
+		return this.max;
+	}
 	/**
 	 * Donne id du noeud source.
 	 * @return id

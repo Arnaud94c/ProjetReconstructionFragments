@@ -1,8 +1,13 @@
+import Ressources.Alignement;
+
 
 public class Test {
 	public static  void main(String[] args) {
-		String s = "CAGCACTTGGATTCTCGG";
-		String t = "CAGCGTGG";
+		
+		String s = "CCAGTTTT";
+		String t = "CAGT";
+		//String s = "AGCC";
+		//String t = "AGCC";
 		int[][] matrice = Algo.semiGlobal( s, t, s.length()+1, t.length()+1);
 		for (int i=0; i<s.length()+1; i++){
 			for (int j=0; j<t.length()+1 ; j++){
@@ -16,17 +21,13 @@ public class Test {
 		int column[] = Algo.findMaxColumn(matrice);
 		int max2= column[0];
 		System.out.println(max2);
-		int tab1[] = Algo.traceWayColumn(s, t, matrice, column[1]);
-		int tab2[] = Algo.traceWayRow(s, t, matrice, row[1]);
-		System.out.println("confondu, coord. deb, coord. fin");
-		System.out.println("column ");
-		for (int i=0; i<tab1.length; i++){
-			System.out.print(tab1[i]+" ");
-		}System.out.println();
-		System.out.println("row");
-		for (int i=0; i<tab2.length; i++){
-			System.out.print(tab2[i]+" ");
-		}
-		System.out.println();
+		Alignement tab1 = Algo.traceWayColumn(s, t, matrice, column[1]);
+		System.out.println("utile");
+		System.out.println(tab1.s1);
+		System.out.println(tab1.s2);
+		System.out.println(tab1.s3);
+		System.out.println(tab1.t1);
+		System.out.println(tab1.t2);
+	
 	}
 }

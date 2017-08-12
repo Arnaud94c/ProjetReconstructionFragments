@@ -28,6 +28,7 @@ public class Greedy
 		Node source,dest;
 		Link link;
 		setInit();
+		System.out.println(graphe.getLink().size());
 		for(Link l: graphe.getLink())
 		{	
 			
@@ -76,7 +77,7 @@ public class Greedy
 				if(!l.getChaineSourceCompl() && !l.getChaineDestinationCompl() ){
 					if((source.getCompl() || (!source.getOut() && !source.getIn())) && (dest.getCompl() || (!dest.getOut() && !dest.getIn()))) // n n -> ci ci : on doit inverser la source et la destination pour avoir le bon max correspondant
 					{
-						link =new Link(l.getDestinationId(),l.getSourceId(),true,true,l.getValue()); 
+						link =new Link(l.getDestinationId(),l.getSourceId(),true,true,l.getMax()); 
 						if (!loop(link)){
 							hamiltonienWay.add(link);									
 							graphe.getNode(l.getSourceId()).isIn();
@@ -89,7 +90,7 @@ public class Greedy
 				}
 				else if(!l.getChaineSourceCompl() && l.getChaineDestinationCompl() ){  // n ci -> ci n 
 					if((source.getCompl() || (!source.getOut() && !source.getIn())) && !dest.getCompl() ){
-						link =new Link(l.getDestinationId(),l.getSourceId(),true,false,l.getValue()); 
+						link =new Link(l.getDestinationId(),l.getSourceId(),true,false,l.getMax()); 
 						if (!loop(link)){
 							hamiltonienWay.add(link);			
 							graphe.getNode(l.getSourceId()).isIn();
@@ -101,7 +102,7 @@ public class Greedy
 				}
 				else if(l.getChaineSourceCompl() && !l.getChaineDestinationCompl() ){  // ci n -> n ci
 					if(!source.getCompl() && (dest.getCompl() || (!dest.getOut() && !dest.getIn()))){
-						link =new Link(l.getDestinationId(),l.getSourceId(),false,true,l.getValue()); 
+						link =new Link(l.getDestinationId(),l.getSourceId(),false,true,l.getMax()); 
 						if (!loop(link)){
 							hamiltonienWay.add(link);			
 							graphe.getNode(l.getSourceId()).isIn();
@@ -118,6 +119,12 @@ public class Greedy
 				break;
 			}
 		}
+		System.out.println(graphe.getNode().size()-1);
+		System.out.println(listSet.get(0).getlistId());
+		System.out.println(listSet.size());
+		System.out.println(this.hamiltonienWay.size());
+		System.out.println(this.hamiltonienWay);
+		
 		return listSet.get(0).getlistId();
 	}
 	

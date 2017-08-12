@@ -39,8 +39,9 @@ public class Main {
 		// TODO Auto-generated method stub
 		
 		 CollectionFragments collection = new CollectionFragments();
-		filePath = args[0];
+//		filePath = args[0];
 //		filePath="C:\\Users\\Arnaud\\Documents\\FragmentsReconstruction\\ReconstructionFragments\\files\\Collection2S.FASTA";
+		filePath = "D:\\Documents\\workspace\\BioInfo\\src\\Ressources\\Collection1-Simplifiée.fasta";
 		collection=readFile(filePath);
 		
 		final CollectionFragments collection2= collection;
@@ -124,15 +125,18 @@ public class Main {
 		
 //		System.out.println("fin");
 		time=(System.currentTimeMillis()-time)/1000;
-		System.out.println("executer en :"+time+" secondes");
+		System.out.println("execute en :"+time+" secondes");
 		Graphe graphe = new Graphe(listNode,listLink);
 		System.out.println("Tri decroissant en cours ...");
 		graphe.triHeap();
 		Greedy greedy = new Greedy(graphe);
 		ArrayList<Integer> chemin = greedy.applyAlgo();
-		s = Unifier.unify(chemin, graphe.getNode(), collection);
+		//s = Unifier.unify(chemin, graphe.getNode(), collection);
+		Unifier uni=new Unifier(chemin, graphe.getNode(), collection);
+		s=uni.concensus;
 		System.out.println("Chemin calcule");
-		String fastaPath=CreateFastaFile(args[2],s);
+//		String fastaPath=CreateFastaFile(args[2],s);
+		String fastaPath=CreateFastaFile("rtest.FASTA",s);
 		System.out.println("Le fichier de resultat se situe:"+fastaPath);
 		sic =s;
 		for (int i=0; i<s.length();i++)
@@ -160,7 +164,8 @@ public class Main {
 			sic= buff.reverse().toString();
 			
 		}
-		fastaPath=CreateFastaFile(args[4],sic);
+//		fastaPath=CreateFastaFile(args[4],sic);
+		fastaPath=CreateFastaFile("rtestic.FASTA",sic);
 		System.out.println("Le fichier de resultat se situe:"+fastaPath);
 		
 		
@@ -322,8 +327,9 @@ public class Main {
 		frag2.actualiseSize();		
 		int[][] matrice=Algo.semiGlobal(chaine1, chaine2, frag1.getSize()+1, frag2.getSize()+1);
 
-			int max1= Algo.findMaxRow(matrice[frag1.getSize()])[0]; 
-			int max2=Algo.findMaxColumn(matrice)[0];
+		int[] max1= Algo.findMaxRow(matrice[frag1.getSize()]); 
+		int[] max2=Algo.findMaxColumn(matrice);
+
 
 		switch(mode)
 		{
@@ -334,6 +340,11 @@ public class Main {
 			link=new Link(frag1.getId(),frag2.getId(),false,false,max1); 
 			listLink.add((Link) link);
 			link=new Link(frag2.getId(),frag1.getId(),false,false,max2);
+			listLink.add((Link) link);
+			// ci ci
+			link=new Link(frag1.getId(),frag2.getId(),true,true,max2); 
+			listLink.add((Link) link);
+			link=new Link(frag2.getId(),frag1.getId(),true,true,max1);
 			listLink.add((Link) link);
 			}
 		
@@ -349,6 +360,11 @@ public class Main {
 			link=new Link(frag1.getId(),frag2.getId(),false,true,max1);
 			listLink.add((Link) link);
 			link=new Link(frag2.getId(),frag1.getId(),true,false,max2);
+			listLink.add((Link) link);
+			// ci n
+			link=new Link(frag1.getId(),frag2.getId(),true,false,max2);
+			listLink.add((Link) link);
+			link=new Link(frag2.getId(),frag1.getId(),false,true,max1);
 			listLink.add((Link) link);
 			}
 			
